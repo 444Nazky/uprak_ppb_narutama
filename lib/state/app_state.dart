@@ -1,217 +1,182 @@
+import 'package:data_siswa/data/session_store.dart';
+import 'package:data_siswa/data/siswa_repository.dart';
+import 'package:data_siswa/models/siswa.dart';
 import 'package:flutter/material.dart';
 
-import '../data/database_helper.dart';
-import '../models/student.dart';
-import '../services/app_preferences.dart';
-import '../services/auth_service.dart';
-import '../services/notification_service.dart';
-import '../services/photo_service.dart';
-
+/// Sumber kebenaran tunggal untuk sesi, tema, dan daftar siswa.
 class AppState extends ChangeNotifier {
-  AppState({
-    DatabaseHelper? database,
-    AppPreferences? preferences,
-    AuthService? auth,
-    NotificationService? notifications,
-  }) : _database = database ?? DatabaseHelper.instance,
-       _preferences = preferences ?? AppPreferences.instance,
-       _auth = auth ?? AuthService(),
-       _notifications = notifications ?? NotificationService();
+  AppState(this._repo, this._sesi);
 
-  final DatabaseHelper _database;
-  final AppPreferences _preferences;
-  final AuthService _auth;
-  final NotificationService _notifications;
+  /// Akun demo untuk keperluan tugas. Ganti dengan autentikasi server
+  /// bila aplikasi dipakai di sekolah sungguhan.
+  static const akunDemoUsername = 'admin';
+  static const akunDemoPassword = 'admin123';
 
-  List<Student> _students = [];
-  bool _loading = true;
-  bool _authenticated = false;
-  String? _username;
-  ThemeMode _themeMode = ThemeMode.light;
-  bool _notificationsEnabled = true;
+  final SiswaRepository _repo;
+  final SessionStore _sesi;
 
-  bool get isLoading => _loading;
-  bool get isAuthenticated => _authenticated;
-  bool get isDarkMode => _themeMode == ThemeMode.dark;
-  ThemeMode get themeMode => _themeMode;
-  bool get notificationsEnabled => _notificationsEnabled;
-  String get displayName => AuthService.displayName;
-  String get role => AuthService.role;
-  String get username => _username ?? AuthService.usernameLabel;
+  List<Siswa> _siswa = const [];
+  bool _memuat = true;
+  String _pencarian = '';
+  String? _filterKelas;
+  bool _login = false;
+  String _username = '';
+  String _nama = 'Administrator';
+  ThemeMode _tema = ThemeMode.system;
 
-  List<Student> get students => List<Student>.unmodifiable(_students);
-  int get totalStudents => _students.length;
+  List<Siswa> get siswa => _siswa;
+  bool get memuat => _memuat;
+  bool get sudahLogin => _login;
+  String get username => _username;
+  String get namaPengguna => _nama;
+  ThemeMode get tema => _tema;
+  String get pencarian => _pencarian;
+  String? get filterKelas => _filterKelas;
 
-  int get classCount => _students.map((student) => student.kelas).toSet().length;
+  int get totalSiswa => _siswa.length;
 
-  int get photoCount =>
-      _students.where((student) => student.photoPath != null).length;
+  int get totalKelas => kelasTersedia.length;
 
-  List<String> get classes {
-    final values = _students.map((student) => student.kelas).toSet().toList()
-      ..sort();
-    return values;
+  List<String> get kelasTersedia {
+    final set = <String>{for (final s in _siswa) s.kelas};
+    final daftar = set.where((e) => e.isNotEmpty).toList()..sort();
+    return daftar;
   }
 
-  List<Student> get recentStudents {
-    final sorted = [..._students]
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    return sorted;
+  /// Daftar yang sudah difilter pencarian dan kelas, dipakai halaman Data Siswa.
+  List<Siswa> get siswaTampil {
+    final kunci = _pencarian.trim().toLowerCase();
+    return _siswa.where((s) {
+      final cocokKelas = _filterKelas == null || s.kelas == _filterKelas;
+      if (!cocokKelas) return false;
+      if (kunci.isEmpty) return true;
+      return s.nama.toLowerCase().contains(kunci) ||
+          s.nis.toLowerCase().contains(kunci) ||
+          s.kelas.toLowerCase().contains(kunci);
+    }).toList(growable: false);
   }
 
-  Future<void> bootstrap() async {
-    try {
-      _themeMode = await _preferences.isDarkMode()
-          ? ThemeMode.dark
-          : ThemeMode.light;
-      _notificationsEnabled = await _preferences.notificationsEnabled();
-      _username = await _auth.restoreSession();
-      _authenticated = _username != null;
-      _students = await _database.getStudents();
-      await _notifications.init();
-    } catch (_) {
-      _students = [];
-    } finally {
-      _loading = false;
-      notifyListeners();
+  List<Siswa> get siswaTerbaru {
+    final urut = [..._siswa]..sort((a, b) => (b.id ?? 0).compareTo(a.id ?? 0));
+    return urut.take(3).toList(growable: false);
+  }
+
+  Map<String, int> get jumlahPerKelas {
+    final hasil = <String, int>{};
+    for (final kelas in kelasTersedia) {
+      hasil[kelas] = _siswa.where((s) => s.kelas == kelas).length;
     }
+    return hasil;
+  }
+
+  String get inisialPengguna {
+    final bagian = _nama.trim().split(RegExp(r'\s+'));
+    if (bagian.isEmpty || bagian.first.isEmpty) return 'A';
+    if (bagian.length == 1) return bagian.first[0].toUpperCase();
+    return (bagian.first[0] + bagian[1][0]).toUpperCase();
+  }
+
+  Future<void> init() async {
+    await _sesi.muat();
+    _login = await _sesi.ambilLogin();
+    _username = await _sesi.ambilUsername() ?? '';
+    _nama = await _sesi.ambilNama() ?? 'Administrator';
+    _tema = await _sesi.ambilTema();
+    await _repo.init();
+    _siswa = await _repo.ambilSemua();
+    _memuat = false;
+    notifyListeners();
   }
 
   Future<bool> login(String username, String password) async {
-    final success = await _auth.signIn(username, password);
-    if (success) {
-      _authenticated = true;
-      _username = username.trim().toLowerCase();
-      notifyListeners();
-    }
-    return success;
+    final cocok = username.trim() == akunDemoUsername && password == akunDemoPassword;
+    if (!cocok) return false;
+    _login = true;
+    _username = akunDemoUsername;
+    _nama = 'Administrator Sekolah';
+    await _sesi.simpanLogin(username: _username, nama: _nama);
+    notifyListeners();
+    return true;
   }
 
   Future<void> logout() async {
-    await _auth.signOut();
-    _authenticated = false;
-    _username = null;
+    _login = false;
+    _username = '';
+    _nama = 'Administrator';
+    await _sesi.hapusLogin();
     notifyListeners();
   }
 
-  Future<bool> isNisTaken(String nis, {int? excludeId}) {
-    return _database.nisExists(nis.trim(), excludeId: excludeId);
-  }
-
-  Future<Student> saveStudent({
-    Student? existing,
-    required String nis,
-    required String name,
-    required String kelas,
-    required String alamat,
-    String? photoPath,
-    bool clearPhoto = false,
-  }) async {
-    final now = DateTime.now();
-    late Student saved;
-
-    if (existing == null) {
-      final student = Student(
-        nis: nis.trim(),
-        name: name.trim(),
-        kelas: kelas,
-        alamat: alamat.trim(),
-        photoPath: clearPhoto ? null : photoPath,
-        createdAt: now,
-        updatedAt: now,
-      );
-      final id = await _database.insertStudent(student);
-      saved = student.copyWith(id: id);
-    } else {
-      final updated = existing.copyWith(
-        nis: nis.trim(),
-        name: name.trim(),
-        kelas: kelas,
-        alamat: alamat.trim(),
-        photoPath: photoPath,
-        clearPhoto: clearPhoto,
-        updatedAt: now,
-      );
-      await _database.updateStudent(updated);
-      if (existing.photoPath != null &&
-          existing.photoPath != updated.photoPath) {
-        await PhotoService.delete(existing.photoPath);
-      }
-      saved = updated;
-    }
-
-    await _reloadStudents();
-    if (_notificationsEnabled) {
-      await _notifications.showStudentSaved(saved.name);
-    }
-    notifyListeners();
-    return saved;
-  }
-
-  Future<void> deleteStudent(Student student) async {
-    if (student.id == null) return;
-    await _database.deleteStudent(student.id!);
-    await PhotoService.delete(student.photoPath);
-    await _reloadStudents();
+  Future<void> gantiTema(ThemeMode mode) async {
+    _tema = mode;
+    await _sesi.simpanTema(mode);
     notifyListeners();
   }
 
-  Future<void> seedSampleData() async {
-    if (_students.isNotEmpty) return;
-    final now = DateTime.now();
-    final samples = <List<String>>[
-      ['2024001', 'Aditya Pratama', 'XI RPL 1', 'Jl. Merdeka No. 12, Bogor'],
-      ['2024002', 'Bunga Lestari', 'XI RPL 2', 'Jl. Pajajaran No. 8, Bogor'],
-      ['2024003', 'Citra Ayu Ningsih', 'XI RPL 1', 'Jl. Sudirman No. 45, Bogor'],
-      ['2024004', 'Dimas Saputra', 'XI RPL 2', 'Jl. Raya Tajur No. 21, Bogor'],
-      ['2024005', 'Eka Ramadhani', 'XI RPL 1', 'Jl. Cimahpar No. 7, Bogor'],
-      ['2024006', 'Fajar Nugroho', 'XI RPL 2', 'Jl. Bogor Baru No. 3, Bogor'],
-      ['2024007', 'Gita Permata', 'XI TKJ 1', 'Jl. Pahlawan No. 18, Bogor'],
-      ['2024008', 'Hendra Wijaya', 'XI TKJ 2', 'Jl. Ahmad Yani No. 30, Bogor'],
-    ];
-
-    for (var index = 0; index < samples.length; index++) {
-      final item = samples[index];
-      final created = now.subtract(Duration(hours: index * 6));
-      await _database.insertStudent(
-        Student(
-          nis: item[0],
-          name: item[1],
-          kelas: item[2],
-          alamat: item[3],
-          createdAt: created,
-          updatedAt: created,
-        ),
-      );
-    }
-
-    await _reloadStudents();
+  void cari(String kata) {
+    if (_pencarian == kata) return;
+    _pencarian = kata;
     notifyListeners();
   }
 
-  Future<void> setDarkMode(bool value) async {
-    _themeMode = value ? ThemeMode.dark : ThemeMode.light;
-    await _preferences.setDarkMode(value);
+  void saringKelas(String? kelas) {
+    if (_filterKelas == kelas) return;
+    _filterKelas = kelas;
     notifyListeners();
   }
 
-  Future<bool> setNotificationsEnabled(bool value) async {
-    var granted = true;
-    if (value) {
-      granted = await _notifications.requestPermission();
-      if (granted) {
-        await _notifications.showReminder(
-          'Notifikasi aktif. Kamu akan diberi tahu setiap data siswa berubah.',
-        );
-      }
-    }
-    _notificationsEnabled = value;
-    await _preferences.setNotificationsEnabled(value);
-    notifyListeners();
-    return granted;
+  Future<bool> nisDipakai(String nis, {int? kecualiId}) {
+    return _repo.nisDipakai(nis.trim(), kecualiId: kecualiId);
   }
 
-  Future<void> _reloadStudents() async {
-    _students = await _database.getStudents();
+  Future<void> muatUlang() async {
+    _memuat = true;
+    notifyListeners();
+    _siswa = await _repo.ambilSemua();
+    _memuat = false;
+    notifyListeners();
+  }
+
+  Future<Siswa> tambahSiswa(Siswa siswa) async {
+    final tersimpan = await _repo.tambah(siswa);
+    _siswa = [..._siswa, tersimpan]..sort(_urutNama);
+    notifyListeners();
+    return tersimpan;
+  }
+
+  Future<void> ubahSiswa(Siswa siswa) async {
+    await _repo.ubah(siswa);
+    _siswa = _siswa.map((s) => s.id == siswa.id ? siswa : s).toList()..sort(_urutNama);
+    notifyListeners();
+  }
+
+  Future<void> hapusSiswa(Siswa siswa) async {
+    final id = siswa.id;
+    if (id == null) return;
+    await _repo.hapus(id);
+    _siswa = _siswa.where((s) => s.id != id).toList(growable: false);
+    notifyListeners();
+  }
+
+  static int _urutNama(Siswa a, Siswa b) =>
+      a.nama.toLowerCase().compareTo(b.nama.toLowerCase());
+}
+
+/// Menyediakan [AppState] ke seluruh pohon widget.
+class AppScope extends InheritedNotifier<AppState> {
+  const AppScope({super.key, required AppState state, required super.child})
+      : super(notifier: state);
+
+  static AppState of(BuildContext context) {
+    final scope = context.dependOnInheritedWidgetOfExactType<AppScope>();
+    assert(scope != null, 'AppScope tidak ditemukan di atas widget ini.');
+    return scope!.notifier!;
+  }
+
+  /// Membaca state tanpa ikut membangun ulang saat data berubah.
+  static AppState baca(BuildContext context) {
+    final scope = context.getInheritedWidgetOfExactType<AppScope>();
+    assert(scope != null, 'AppScope tidak ditemukan di atas widget ini.');
+    return scope!.notifier!;
   }
 }

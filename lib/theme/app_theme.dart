@@ -1,354 +1,334 @@
 import 'package:flutter/material.dart';
 
+/// Palet dan tema aplikasi Data Siswa.
+///
+/// Satu aksen (cobalt) dipakai di seluruh layar. Radius mengikuti satu aturan:
+/// kartu 18, input dan tombol 14, chip dan avatar 999.
 abstract final class AppColors {
-  static const blue = Color(0xFF1D4ED8);
-  static const blueDark = Color(0xFF1E3A8A);
-  static const blueSoft = Color(0xFFDBEAFE);
-  static const teal = Color(0xFF0F766E);
-  static const amber = Color(0xFFF59E0B);
-  static const danger = Color(0xFFDC2626);
-  static const success = Color(0xFF15803D);
+  static const cobalt = Color(0xFF2563EB);
+  static const cobaltDeep = Color(0xFF1D4ED8);
+  static const cobaltSoft = Color(0xFFEFF4FF);
 
-  static const canvas = Color(0xFFF5F7FB);
-  static const surface = Colors.white;
-  static const surfaceMuted = Color(0xFFF1F5F9);
-  static const ink = Color(0xFF0F172A);
-  static const inkMuted = Color(0xFF64748B);
-  static const line = Color(0xFFE2E8F0);
+  static const canvas = Color(0xFFF6F7FB);
+  static const surface = Color(0xFFFFFFFF);
+  static const line = Color(0xFFE3E7EF);
+  static const ink = Color(0xFF141A24);
+  static const inkMuted = Color(0xFF667085);
 
-  static const darkCanvas = Color(0xFF0B1220);
-  static const darkSurface = Color(0xFF111B2E);
-  static const darkSurfaceMuted = Color(0xFF18263D);
-  static const darkInk = Color(0xFFE6EDF7);
-  static const darkInkMuted = Color(0xFF94A3B8);
-  static const darkLine = Color(0xFF26344B);
+  static const success = Color(0xFF0E9F6E);
+  static const successSoft = Color(0xFFE7F7F0);
+  static const danger = Color(0xFFD92D20);
+  static const dangerSoft = Color(0xFFFDECEA);
+  static const amber = Color(0xFFB54708);
+  static const amberSoft = Color(0xFFFEF3E2);
+
+  static const darkCanvas = Color(0xFF0B0F16);
+  static const darkSurface = Color(0xFF141B26);
+  static const darkElevated = Color(0xFF1B2432);
+  static const darkLine = Color(0xFF27313F);
+  static const darkInk = Color(0xFFE9EDF4);
+  static const darkInkMuted = Color(0xFF9AA5B4);
+}
+
+abstract final class AppRadius {
+  static const card = 18.0;
+  static const field = 14.0;
+  static const pill = 999.0;
 }
 
 abstract final class AppTheme {
+  static const _font = 'PlusJakartaSans';
+
   static ThemeData light() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: AppColors.blue,
+    const scheme = ColorScheme(
       brightness: Brightness.light,
-    ).copyWith(
-      primary: AppColors.blue,
+      primary: AppColors.cobalt,
       onPrimary: Colors.white,
-      primaryContainer: AppColors.blueSoft,
-      onPrimaryContainer: const Color(0xFF172554),
-      secondary: AppColors.teal,
+      primaryContainer: AppColors.cobaltSoft,
+      onPrimaryContainer: AppColors.cobaltDeep,
+      secondary: AppColors.ink,
       onSecondary: Colors.white,
-      secondaryContainer: const Color(0xFFCCFBF1),
-      onSecondaryContainer: const Color(0xFF134E4A),
+      secondaryContainer: Color(0xFFEDF0F6),
+      onSecondaryContainer: AppColors.ink,
+      tertiary: AppColors.success,
+      onTertiary: Colors.white,
       error: AppColors.danger,
       onError: Colors.white,
-      errorContainer: const Color(0xFFFEE2E2),
-      onErrorContainer: const Color(0xFF7F1D1D),
       surface: AppColors.surface,
       onSurface: AppColors.ink,
-      surfaceContainerLowest: Colors.white,
-      surfaceContainerLow: const Color(0xFFF8FAFC),
-      surfaceContainer: AppColors.surfaceMuted,
-      surfaceContainerHigh: const Color(0xFFE8EEF7),
-      surfaceContainerHighest: const Color(0xFFDEE7F3),
-      outline: const Color(0xFFCBD5E1),
-      outlineVariant: AppColors.line,
+      onSurfaceVariant: AppColors.inkMuted,
+      outline: AppColors.line,
+      outlineVariant: Color(0xFFEDF0F5),
+      shadow: Color(0xFF0F172A),
+      scrim: Color(0xFF0F172A),
+      inverseSurface: AppColors.ink,
+      onInverseSurface: Colors.white,
+      inversePrimary: Color(0xFF93B4FF),
     );
-    return _build(
-      scheme: scheme,
-      canvas: AppColors.canvas,
-      mutedInk: AppColors.inkMuted,
-      line: AppColors.line,
-      navSurface: Colors.white,
-    );
+    return _build(scheme, AppColors.canvas, AppColors.surface, AppColors.line);
   }
 
   static ThemeData dark() {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: AppColors.blue,
+    const scheme = ColorScheme(
       brightness: Brightness.dark,
-    ).copyWith(
-      primary: const Color(0xFF93C5FD),
-      onPrimary: const Color(0xFF0B2A5B),
-      primaryContainer: AppColors.blueDark,
-      onPrimaryContainer: AppColors.blueSoft,
-      secondary: const Color(0xFF5EEAD4),
-      onSecondary: const Color(0xFF042F2E),
-      secondaryContainer: const Color(0xFF115E59),
-      onSecondaryContainer: const Color(0xFFCCFBF1),
-      error: const Color(0xFFF87171),
-      onError: const Color(0xFF450A0A),
-      errorContainer: const Color(0xFF7F1D1D),
-      onErrorContainer: const Color(0xFFFEE2E2),
+      primary: Color(0xFF8FB1FF),
+      onPrimary: Color(0xFF0A2A66),
+      primaryContainer: Color(0xFF1B335C),
+      onPrimaryContainer: Color(0xFFD8E3FF),
+      secondary: AppColors.darkInk,
+      onSecondary: Color(0xFF0B0F16),
+      secondaryContainer: AppColors.darkElevated,
+      onSecondaryContainer: AppColors.darkInk,
+      tertiary: Color(0xFF5ED3A8),
+      onTertiary: Color(0xFF04321F),
+      error: Color(0xFFFF9B92),
+      onError: Color(0xFF4E0B06),
       surface: AppColors.darkSurface,
       onSurface: AppColors.darkInk,
-      surfaceContainerLowest: const Color(0xFF080E19),
-      surfaceContainerLow: const Color(0xFF0E1728),
-      surfaceContainer: AppColors.darkSurfaceMuted,
-      surfaceContainerHigh: const Color(0xFF1E2E48),
-      surfaceContainerHighest: const Color(0xFF273A57),
-      outline: const Color(0xFF3B4C66),
-      outlineVariant: AppColors.darkLine,
+      onSurfaceVariant: AppColors.darkInkMuted,
+      outline: AppColors.darkLine,
+      outlineVariant: Color(0xFF1F2836),
+      shadow: Colors.black,
+      scrim: Colors.black,
+      inverseSurface: AppColors.darkInk,
+      onInverseSurface: Color(0xFF0B0F16),
+      inversePrimary: AppColors.cobalt,
     );
-    return _build(
-      scheme: scheme,
-      canvas: AppColors.darkCanvas,
-      mutedInk: AppColors.darkInkMuted,
-      line: AppColors.darkLine,
-      navSurface: AppColors.darkSurface,
-    );
+    return _build(scheme, AppColors.darkCanvas, AppColors.darkSurface, AppColors.darkLine);
   }
 
-  static ThemeData _build({
-    required ColorScheme scheme,
-    required Color canvas,
-    required Color mutedInk,
-    required Color line,
-    required Color navSurface,
-  }) {
+  static ThemeData _build(
+    ColorScheme scheme,
+    Color canvas,
+    Color surface,
+    Color line,
+  ) {
     final base = ThemeData(
       useMaterial3: true,
-      fontFamily: 'PlusJakartaSans',
       colorScheme: scheme,
+      fontFamily: _font,
       scaffoldBackgroundColor: canvas,
       splashFactory: InkSparkle.splashFactory,
     );
 
-    final text = base.textTheme.copyWith(
-      displayLarge: base.textTheme.displayLarge?.copyWith(
-        fontSize: 40,
-        fontWeight: FontWeight.w800,
-        letterSpacing: -1.4,
-        height: 1.1,
-      ),
-      displaySmall: base.textTheme.displaySmall?.copyWith(
-        fontSize: 32,
-        fontWeight: FontWeight.w800,
-        letterSpacing: -1,
-        height: 1.15,
-      ),
-      headlineMedium: base.textTheme.headlineMedium?.copyWith(
-        fontSize: 26,
-        fontWeight: FontWeight.w800,
-        letterSpacing: -0.8,
-        height: 1.2,
-      ),
-      headlineSmall: base.textTheme.headlineSmall?.copyWith(
-        fontSize: 21,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.4,
-      ),
-      titleLarge: base.textTheme.titleLarge?.copyWith(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-        letterSpacing: -0.2,
-      ),
-      titleMedium: base.textTheme.titleMedium?.copyWith(
-        fontSize: 15,
-        fontWeight: FontWeight.w700,
-      ),
-      titleSmall: base.textTheme.titleSmall?.copyWith(
-        fontSize: 13,
-        fontWeight: FontWeight.w600,
-      ),
-      bodyLarge: base.textTheme.bodyLarge?.copyWith(
-        fontSize: 15,
-        height: 1.55,
-        fontWeight: FontWeight.w400,
-      ),
-      bodyMedium: base.textTheme.bodyMedium?.copyWith(
-        fontSize: 13.5,
-        height: 1.5,
-        fontWeight: FontWeight.w400,
-      ),
-      bodySmall: base.textTheme.bodySmall?.copyWith(
-        fontSize: 12,
-        height: 1.45,
-        fontWeight: FontWeight.w400,
-        color: mutedInk,
-      ),
-      labelLarge: base.textTheme.labelLarge?.copyWith(
-        fontSize: 14,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.1,
-      ),
-      labelMedium: base.textTheme.labelMedium?.copyWith(
-        fontSize: 12,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    final textTheme = base.textTheme
+        .apply(
+          fontFamily: _font,
+          bodyColor: scheme.onSurface,
+          displayColor: scheme.onSurface,
+        )
+        .copyWith(
+          displaySmall: base.textTheme.displaySmall?.copyWith(
+            fontSize: 34,
+            height: 1.15,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.8,
+          ),
+          headlineMedium: base.textTheme.headlineMedium?.copyWith(
+            fontSize: 26,
+            height: 1.2,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+          ),
+          headlineSmall: base.textTheme.headlineSmall?.copyWith(
+            fontSize: 21,
+            height: 1.25,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.3,
+          ),
+          titleLarge: base.textTheme.titleLarge?.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
+          ),
+          titleMedium: base.textTheme.titleMedium?.copyWith(
+            fontSize: 15.5,
+            fontWeight: FontWeight.w600,
+          ),
+          bodyLarge: base.textTheme.bodyLarge?.copyWith(fontSize: 15.5, height: 1.55),
+          bodyMedium: base.textTheme.bodyMedium?.copyWith(fontSize: 14, height: 1.5),
+          bodySmall: base.textTheme.bodySmall?.copyWith(fontSize: 12.5, height: 1.45),
+          labelLarge: base.textTheme.labelLarge?.copyWith(
+            fontSize: 14.5,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0,
+          ),
+          labelMedium: base.textTheme.labelMedium?.copyWith(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w600,
+          ),
+        );
 
-    final inputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: line),
-    );
+    OutlineInputBorder border(Color color, [double width = 1]) {
+      return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(AppRadius.field),
+        borderSide: BorderSide(color: color, width: width),
+      );
+    }
 
     return base.copyWith(
-      textTheme: text,
-      appBarTheme: AppBarThemeData(
+      textTheme: textTheme,
+      dividerTheme: DividerThemeData(color: line, thickness: 1, space: 1),
+      appBarTheme: AppBarTheme(
         backgroundColor: canvas,
         surfaceTintColor: Colors.transparent,
+        foregroundColor: scheme.onSurface,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: text.titleLarge,
-        iconTheme: IconThemeData(color: scheme.onSurface, size: 22),
-        actionsIconTheme: IconThemeData(color: scheme.onSurface, size: 22),
-      ),
-      cardTheme: CardThemeData(
-        color: scheme.surface,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: line),
-        ),
-      ),
-      inputDecorationTheme: InputDecorationThemeData(
-        filled: true,
-        fillColor: scheme.surfaceContainerLow,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-        hintStyle: TextStyle(color: mutedInk, fontWeight: FontWeight.w400),
-        labelStyle: TextStyle(color: mutedInk, fontWeight: FontWeight.w500),
-        prefixIconColor: mutedInk,
-        suffixIconColor: mutedInk,
-        border: inputBorder,
-        enabledBorder: inputBorder,
-        focusedBorder: inputBorder.copyWith(
-          borderSide: BorderSide(color: scheme.primary, width: 1.6),
-        ),
-        errorBorder: inputBorder.copyWith(
-          borderSide: BorderSide(color: scheme.error),
-        ),
-        focusedErrorBorder: inputBorder.copyWith(
-          borderSide: BorderSide(color: scheme.error, width: 1.6),
-        ),
-        errorStyle: TextStyle(
-          color: scheme.error,
-          fontWeight: FontWeight.w500,
-        ),
+        titleTextStyle: textTheme.titleLarge,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           minimumSize: const Size.fromHeight(52),
           backgroundColor: scheme.primary,
           foregroundColor: scheme.onPrimary,
-          textStyle: text.labelLarge,
+          disabledBackgroundColor: scheme.primary.withValues(alpha: 0.35),
+          disabledForegroundColor: scheme.onPrimary.withValues(alpha: 0.8),
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppRadius.field),
           ),
+          textStyle: textTheme.labelLarge,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(52),
+          foregroundColor: scheme.onSurface,
+          side: BorderSide(color: line),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppRadius.field),
+          ),
+          textStyle: textTheme.labelLarge,
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          textStyle: text.labelLarge,
           foregroundColor: scheme.primary,
+          textStyle: textTheme.labelLarge,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          minimumSize: const Size(0, 48),
-          foregroundColor: scheme.onSurface,
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: scheme.brightness == Brightness.light
+            ? surface
+            : AppColors.darkElevated,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        hintStyle: textTheme.bodyMedium?.copyWith(
+          color: scheme.onSurfaceVariant.withValues(alpha: 0.75),
+        ),
+        labelStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+        floatingLabelStyle: textTheme.bodyMedium?.copyWith(color: scheme.primary),
+        border: border(line),
+        enabledBorder: border(line),
+        focusedBorder: border(scheme.primary, 1.6),
+        errorBorder: border(scheme.error),
+        focusedErrorBorder: border(scheme.error, 1.6),
+        errorStyle: textTheme.bodySmall?.copyWith(color: scheme.error),
+      ),
+      cardTheme: CardThemeData(
+        color: surface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.card),
           side: BorderSide(color: line),
-          textStyle: text.labelLarge,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
         ),
       ),
-      navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: navSurface,
+      dialogTheme: DialogThemeData(
+        backgroundColor: surface,
         surfaceTintColor: Colors.transparent,
-        indicatorColor: scheme.primaryContainer,
         elevation: 0,
-        height: 68,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22),
+        ),
+        titleTextStyle: textTheme.headlineSmall?.copyWith(fontSize: 19),
+        contentTextStyle: textTheme.bodyMedium?.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: surface,
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: scheme.brightness == Brightness.light
+            ? AppColors.ink
+            : AppColors.darkElevated,
+        contentTextStyle: textTheme.bodyMedium?.copyWith(color: Colors.white),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        insetPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 70,
+        backgroundColor: surface,
+        surfaceTintColor: Colors.transparent,
+        indicatorColor: scheme.primary.withValues(alpha: 0.12),
+        elevation: 0,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
-          return text.labelMedium?.copyWith(
-            color: selected ? scheme.primary : mutedInk,
-            fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+          return textTheme.labelMedium?.copyWith(
+            fontSize: 11.5,
+            color: selected ? scheme.primary : scheme.onSurfaceVariant,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
           );
         }),
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
             size: 23,
-            color: selected ? scheme.primary : mutedInk,
+            color: selected ? scheme.primary : scheme.onSurfaceVariant,
           );
         }),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: scheme.surface,
-        selectedColor: scheme.primaryContainer,
+        backgroundColor: surface,
+        selectedColor: scheme.primary,
         side: BorderSide(color: line),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(999),
+        labelStyle: textTheme.labelMedium?.copyWith(
+          color: scheme.onSurfaceVariant,
+          fontWeight: FontWeight.w600,
         ),
-        labelStyle: text.labelMedium!.copyWith(color: scheme.onSurface),
-        secondaryLabelStyle: text.labelMedium!.copyWith(
-          color: scheme.onPrimaryContainer,
+        secondaryLabelStyle: textTheme.labelMedium?.copyWith(
+          color: scheme.onPrimary,
           fontWeight: FontWeight.w700,
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.pill),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         showCheckmark: false,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: scheme.primary,
         foregroundColor: scheme.onPrimary,
         elevation: 2,
-        focusElevation: 3,
-        hoverElevation: 3,
         highlightElevation: 4,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        extendedTextStyle: text.labelLarge,
-      ),
-      snackBarTheme: SnackBarThemeData(
-        backgroundColor: scheme.brightness == Brightness.light
-            ? const Color(0xFF0F172A)
-            : const Color(0xFFE2E8F0),
-        contentTextStyle: text.bodyMedium?.copyWith(
-          color: scheme.brightness == Brightness.light
-              ? Colors.white
-              : const Color(0xFF0F172A),
-        ),
-        actionTextColor: scheme.brightness == Brightness.light
-            ? const Color(0xFF93C5FD)
-            : AppColors.blue,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(18),
         ),
       ),
-      dialogTheme: DialogThemeData(
-        backgroundColor: scheme.surface,
-        surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        titleTextStyle: text.headlineSmall,
-        contentTextStyle: text.bodyMedium?.copyWith(color: mutedInk),
-      ),
-      popupMenuTheme: PopupMenuThemeData(
-        color: scheme.surface,
-        surfaceTintColor: Colors.transparent,
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: BorderSide(color: line),
-        ),
-        textStyle: text.bodyMedium,
-      ),
-      dividerTheme: DividerThemeData(color: line, thickness: 1, space: 1),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: scheme.primary,
+        linearTrackColor: scheme.primary.withValues(alpha: 0.15),
+        circularTrackColor: scheme.primary.withValues(alpha: 0.15),
+      ),
+      tooltipTheme: TooltipThemeData(
+        decoration: BoxDecoration(
+          color: scheme.inverseSurface,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        textStyle: textTheme.bodySmall?.copyWith(color: scheme.onInverseSurface),
       ),
     );
   }
