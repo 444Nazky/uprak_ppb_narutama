@@ -6,6 +6,7 @@ import 'package:data_siswa/app/screens/student_list_screen.dart';
 import 'package:data_siswa/app/state/app_state.dart';
 import 'package:data_siswa/app/widgets/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Kerangka utama setelah login: tiga tab dan tombol tambah data.
 class RootShell extends StatefulWidget {
@@ -42,7 +43,21 @@ class _RootShellState extends State<RootShell> {
     final tema = Theme.of(context);
     final state = AppScope.of(context);
 
-    return Scaffold(
+    final gayaSistem = (tema.brightness == Brightness.dark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark)
+        .copyWith(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness:
+          tema.brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      systemNavigationBarColor: tema.colorScheme.surface,
+      systemNavigationBarIconBrightness:
+          tema.brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+    );
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: gayaSistem,
+      child: Scaffold(
       body: IndexedStack(
         index: _tab,
         children: [
@@ -106,6 +121,7 @@ class _RootShellState extends State<RootShell> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

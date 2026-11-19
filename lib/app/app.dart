@@ -7,12 +7,14 @@ import 'package:data_siswa/app/state/app_state.dart';
 import 'package:data_siswa/app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 /// Titik masuk aplikasi: siapkan sesi, database, lalu tampilkan layar login
 /// atau dashboard sesuai status sesi.
 Future<void> jalankanAplikasi() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await initializeDateFormatting('id_ID');
 
   final state = AppState(SqliteSiswaRepository(), SessionStore());
   await state.init();
