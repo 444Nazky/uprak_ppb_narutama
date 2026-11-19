@@ -21,9 +21,7 @@ class SectionHeader extends StatelessWidget {
       padding: padding,
       child: Row(
         children: [
-          Expanded(
-            child: Text(title, style: theme.textTheme.titleMedium),
-          ),
+          Expanded(child: Text(title, style: theme.textTheme.titleMedium)),
           if (actionLabel != null)
             TextButton(
               onPressed: onAction,

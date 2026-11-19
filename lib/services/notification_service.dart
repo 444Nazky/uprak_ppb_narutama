@@ -59,11 +59,7 @@ class NotificationService {
   }
 
   Future<void> showReminder(String message) async {
-    await _show(
-      title: 'Pengingat Data Siswa',
-      body: message,
-      id: 1002,
-    );
+    await _show(title: 'Pengingat Data Siswa', body: message, id: 1002);
   }
 
   Future<void> _show({

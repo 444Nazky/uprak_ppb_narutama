@@ -33,7 +33,10 @@ class PdfService {
             pw.SizedBox(height: 2),
             pw.Text(
               'Tahun Ajaran 2026/2027',
-              style: const pw.TextStyle(fontSize: 9.5, color: PdfColors.grey700),
+              style: const pw.TextStyle(
+                fontSize: 9.5,
+                color: PdfColors.grey700,
+              ),
             ),
             pw.SizedBox(height: 12),
             pw.Text(
@@ -43,7 +46,10 @@ class PdfService {
             pw.SizedBox(height: 2),
             pw.Text(
               'Dicetak $tanggal oleh $dicetakOleh',
-              style: const pw.TextStyle(fontSize: 9.5, color: PdfColors.grey700),
+              style: const pw.TextStyle(
+                fontSize: 9.5,
+                color: PdfColors.grey700,
+              ),
             ),
             pw.SizedBox(height: 10),
             pw.Divider(thickness: 0.8, color: PdfColors.grey400),
@@ -54,11 +60,17 @@ class PdfService {
           children: [
             pw.Text(
               '${siswa.length} siswa terdaftar',
-              style: const pw.TextStyle(fontSize: 8.5, color: PdfColors.grey600),
+              style: const pw.TextStyle(
+                fontSize: 8.5,
+                color: PdfColors.grey600,
+              ),
             ),
             pw.Text(
               'Halaman ${context.pageNumber} dari ${context.pagesCount}',
-              style: const pw.TextStyle(fontSize: 8.5, color: PdfColors.grey600),
+              style: const pw.TextStyle(
+                fontSize: 8.5,
+                color: PdfColors.grey600,
+              ),
             ),
           ],
         ),
@@ -102,20 +114,20 @@ class PdfService {
   }
 
   static pw.Widget _sel(String teks) => pw.Padding(
-        padding: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-        child: pw.Text(
-          teks,
-          style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
-        ),
-      );
+    padding: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 6),
+    child: pw.Text(
+      teks,
+      style: pw.TextStyle(fontSize: 9, fontWeight: pw.FontWeight.bold),
+    ),
+  );
 
   static pw.Widget _isi(String teks) => pw.Padding(
-        padding: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-        child: pw.Text(
-          teks.isEmpty ? '-' : teks,
-          style: const pw.TextStyle(fontSize: 9),
-        ),
-      );
+    padding: const pw.EdgeInsets.symmetric(horizontal: 5, vertical: 6),
+    child: pw.Text(
+      teks.isEmpty ? '-' : teks,
+      style: const pw.TextStyle(fontSize: 9),
+    ),
+  );
 
   static Future<void> bagikan({
     required List<Siswa> siswa,

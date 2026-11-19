@@ -92,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               left: -100,
               child: _Glow(
                 size: 320,
-                color: scheme.secondary.withValues(
-                  alpha: isDark ? 0.14 : 0.10,
-                ),
+                color: scheme.secondary.withValues(alpha: isDark ? 0.14 : 0.10),
               ),
             ),
             SafeArea(
@@ -147,9 +145,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ? null
                                   : [
                                       BoxShadow(
-                                        color: const Color(
-                                          0xFF0F172A,
-                                        ).withValues(alpha: 0.05),
+                                        color: const Color(0xFF0F172A)
+                                            .withValues(alpha: 0.05),
                                         blurRadius: 24,
                                         offset: const Offset(0, 10),
                                       ),
@@ -172,9 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: _usernameController,
                                   enabled: !_submitting,
                                   textInputAction: TextInputAction.next,
-                                  autofillHints: const [
-                                    AutofillHints.username,
-                                  ],
+                                  autofillHints: const [AutofillHints.username],
                                   decoration: const InputDecoration(
                                     labelText: 'Username',
                                     hintText: 'Masukkan username',
@@ -183,8 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   validator: (value) {
-                                    if (value == null ||
-                                        value.trim().isEmpty) {
+                                    if (value == null || value.trim().isEmpty) {
                                       return 'Username wajib diisi.';
                                     }
                                     return null;
@@ -200,9 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   enabled: !_submitting,
                                   obscureText: _obscure,
                                   textInputAction: TextInputAction.done,
-                                  autofillHints: const [
-                                    AutofillHints.password,
-                                  ],
+                                  autofillHints: const [AutofillHints.password],
                                   decoration: InputDecoration(
                                     labelText: 'Password',
                                     hintText: 'Masukkan password',
@@ -213,9 +205,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       tooltip: _obscure
                                           ? 'Tampilkan password'
                                           : 'Sembunyikan password',
-                                      onPressed: () => setState(
-                                        () => _obscure = !_obscure,
-                                      ),
+                                      onPressed: () =>
+                                          setState(() => _obscure = !_obscure),
                                       icon: Icon(
                                         _obscure
                                             ? Icons.visibility_outlined
@@ -365,10 +356,7 @@ class _Glow extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       ),
     );
   }

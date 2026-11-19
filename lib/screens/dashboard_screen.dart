@@ -143,11 +143,17 @@ class DashboardScreen extends StatelessWidget {
             ),
             if (jumlahKelas.isEmpty)
               AppCard(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 20,
+                ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline_rounded,
-                        size: 20, color: tema.colorScheme.onSurfaceVariant),
+                    Icon(
+                      Icons.info_outline_rounded,
+                      size: 20,
+                      color: tema.colorScheme.onSurfaceVariant,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -162,13 +168,17 @@ class DashboardScreen extends StatelessWidget {
               )
             else
               AppCard(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
                 child: Column(
                   children: [
                     for (var i = 0; i < jumlahKelas.length; i++) ...[
                       if (i > 0) const Divider(height: 1),
                       InkWell(
-                        onTap: () => onPilihKelas(jumlahKelas.keys.elementAt(i)),
+                        onTap: () =>
+                            onPilihKelas(jumlahKelas.keys.elementAt(i)),
                         borderRadius: BorderRadius.circular(10),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 14),
@@ -187,8 +197,11 @@ class DashboardScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 6),
-                              Icon(Icons.chevron_right_rounded,
-                                  size: 20, color: tema.colorScheme.onSurfaceVariant),
+                              Icon(
+                                Icons.chevron_right_rounded,
+                                size: 20,
+                                color: tema.colorScheme.onSurfaceVariant,
+                              ),
                             ],
                           ),
                         ),
@@ -229,7 +242,10 @@ class DashboardScreen extends StatelessWidget {
               )
             else
               AppCard(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 4,
+                ),
                 child: Column(
                   children: [
                     for (var i = 0; i < state.siswaTerbaru.length; i++) ...[
@@ -246,8 +262,11 @@ class DashboardScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.cloud_done_outlined,
-                    size: 14, color: tema.colorScheme.onSurfaceVariant),
+                Icon(
+                  Icons.cloud_done_outlined,
+                  size: 14,
+                  color: tema.colorScheme.onSurfaceVariant,
+                ),
                 const SizedBox(width: 6),
                 Text(
                   'Tersimpan di perangkat, tetap ada setelah aplikasi ditutup',
@@ -306,7 +325,10 @@ class _KartuTotal extends StatelessWidget {
                 height: 140,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.08),
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
@@ -317,7 +339,11 @@ class _KartuTotal extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.groups_2_outlined, color: Colors.white, size: 19),
+                      const Icon(
+                        Icons.groups_2_outlined,
+                        color: Colors.white,
+                        size: 19,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         'Total siswa terdaftar',
@@ -355,8 +381,10 @@ class _KartuTotal extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.14),
                           borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -377,8 +405,11 @@ class _KartuTotal extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      Icon(Icons.arrow_forward_rounded,
-                          size: 16, color: Colors.white.withValues(alpha: 0.92)),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 16,
+                        color: Colors.white.withValues(alpha: 0.92),
+                      ),
                     ],
                   ),
                 ],
@@ -496,8 +527,11 @@ class _BarisSiswa extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded,
-                size: 20, color: tema.colorScheme.onSurfaceVariant),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 20,
+              color: tema.colorScheme.onSurfaceVariant,
+            ),
           ],
         ),
       ),

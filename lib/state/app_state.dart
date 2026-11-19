@@ -46,14 +46,16 @@ class AppState extends ChangeNotifier {
   /// Daftar yang sudah difilter pencarian dan kelas, dipakai halaman Data Siswa.
   List<Siswa> get siswaTampil {
     final kunci = _pencarian.trim().toLowerCase();
-    return _siswa.where((s) {
-      final cocokKelas = _filterKelas == null || s.kelas == _filterKelas;
-      if (!cocokKelas) return false;
-      if (kunci.isEmpty) return true;
-      return s.nama.toLowerCase().contains(kunci) ||
-          s.nis.toLowerCase().contains(kunci) ||
-          s.kelas.toLowerCase().contains(kunci);
-    }).toList(growable: false);
+    return _siswa
+        .where((s) {
+          final cocokKelas = _filterKelas == null || s.kelas == _filterKelas;
+          if (!cocokKelas) return false;
+          if (kunci.isEmpty) return true;
+          return s.nama.toLowerCase().contains(kunci) ||
+              s.nis.toLowerCase().contains(kunci) ||
+              s.kelas.toLowerCase().contains(kunci);
+        })
+        .toList(growable: false);
   }
 
   List<Siswa> get siswaTerbaru {
@@ -89,7 +91,8 @@ class AppState extends ChangeNotifier {
   }
 
   Future<bool> login(String username, String password) async {
-    final cocok = username.trim() == akunDemoUsername && password == akunDemoPassword;
+    final cocok =
+        username.trim() == akunDemoUsername && password == akunDemoPassword;
     if (!cocok) return false;
     _login = true;
     _username = akunDemoUsername;
@@ -146,7 +149,8 @@ class AppState extends ChangeNotifier {
 
   Future<void> ubahSiswa(Siswa siswa) async {
     await _repo.ubah(siswa);
-    _siswa = _siswa.map((s) => s.id == siswa.id ? siswa : s).toList()..sort(_urutNama);
+    _siswa = _siswa.map((s) => s.id == siswa.id ? siswa : s).toList()
+      ..sort(_urutNama);
     notifyListeners();
   }
 
@@ -165,7 +169,7 @@ class AppState extends ChangeNotifier {
 /// Menyediakan [AppState] ke seluruh pohon widget.
 class AppScope extends InheritedNotifier<AppState> {
   const AppScope({super.key, required AppState state, required super.child})
-      : super(notifier: state);
+    : super(notifier: state);
 
   static AppState of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<AppScope>();

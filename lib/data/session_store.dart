@@ -33,7 +33,10 @@ class SessionStore {
     };
   }
 
-  Future<void> simpanLogin({required String username, required String nama}) async {
+  Future<void> simpanLogin({
+    required String username,
+    required String nama,
+  }) async {
     final store = await _store;
     await store.setBool(_kLogin, true);
     await store.setString(_kUsername, username);

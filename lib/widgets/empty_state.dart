@@ -51,10 +51,7 @@ class EmptyState extends StatelessWidget {
                   color: scheme.onSurfaceVariant,
                 ),
               ),
-              if (action != null) ...[
-                const SizedBox(height: 22),
-                action!,
-              ],
+              if (action != null) ...[const SizedBox(height: 22), action!],
               if (secondaryAction != null) ...[
                 const SizedBox(height: 6),
                 secondaryAction!,

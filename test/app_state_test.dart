@@ -1,7 +1,7 @@
-import 'package:data_siswa/data/session_store.dart';
-import 'package:data_siswa/data/siswa_repository.dart';
-import 'package:data_siswa/models/siswa.dart';
-import 'package:data_siswa/state/app_state.dart';
+import 'package:data_siswa/app/data/session_store.dart';
+import 'package:data_siswa/app/data/siswa_repository.dart';
+import 'package:data_siswa/app/models/siswa.dart';
+import 'package:data_siswa/app/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,9 +44,27 @@ class RepoPalsu implements SiswaRepository {
 
 void main() {
   const contoh = [
-    Siswa(id: 1, nis: '241001', nama: 'Adinda Rahmawati', kelas: 'XI RPL 1', alamat: 'Jl. Meranti No. 14'),
-    Siswa(id: 2, nis: '241002', nama: 'Bagas Prakoso', kelas: 'XI RPL 2', alamat: 'Jl. Kenanga No. 9'),
-    Siswa(id: 3, nis: '241003', nama: 'Kayla Anindya', kelas: 'XI RPL 1', alamat: 'Jl. Cempaka No. 2'),
+    Siswa(
+      id: 1,
+      nis: '241001',
+      nama: 'Adinda Rahmawati',
+      kelas: 'XI RPL 1',
+      alamat: 'Jl. Meranti No. 14',
+    ),
+    Siswa(
+      id: 2,
+      nis: '241002',
+      nama: 'Bagas Prakoso',
+      kelas: 'XI RPL 2',
+      alamat: 'Jl. Kenanga No. 9',
+    ),
+    Siswa(
+      id: 3,
+      nis: '241003',
+      nama: 'Kayla Anindya',
+      kelas: 'XI RPL 1',
+      alamat: 'Jl. Cempaka No. 2',
+    ),
   ];
 
   group('model Siswa', () {
@@ -68,7 +86,12 @@ void main() {
     test('inisial diambil dari dua kata pertama', () {
       expect(contoh[0].inisial, 'AR');
       expect(
-        const Siswa(nis: '1', nama: 'Salsabila', kelas: 'XI RPL 1', alamat: 'Bogor').inisial,
+        const Siswa(
+          nis: '1',
+          nama: 'Salsabila',
+          kelas: 'XI RPL 1',
+          alamat: 'Bogor',
+        ).inisial,
         'S',
       );
     });
@@ -113,7 +136,12 @@ void main() {
 
     test('tambah, ubah, dan hapus memperbarui daftar', () async {
       final baru = await state.tambahSiswa(
-        const Siswa(nis: '241004', nama: 'Rizky Maulana', kelas: 'XI RPL 2', alamat: 'Bogor'),
+        const Siswa(
+          nis: '241004',
+          nama: 'Rizky Maulana',
+          kelas: 'XI RPL 2',
+          alamat: 'Bogor',
+        ),
       );
       expect(state.totalSiswa, 4);
       expect(await state.nisDipakai('241004'), isTrue);

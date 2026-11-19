@@ -45,7 +45,10 @@ class SqliteSiswaRepository implements SiswaRepository {
 
   @override
   Future<List<Siswa>> ambilSemua() async {
-    final rows = await _database.query('siswa', orderBy: 'nama COLLATE NOCASE ASC');
+    final rows = await _database.query(
+      'siswa',
+      orderBy: 'nama COLLATE NOCASE ASC',
+    );
     return rows.map(Siswa.fromMap).toList(growable: false);
   }
 
@@ -90,12 +93,42 @@ class SqliteSiswaRepository implements SiswaRepository {
   /// Data ini bisa dihapus lewat menu hapus seperti data biasa.
   Future<void> _isiContoh(Database db) async {
     const contoh = [
-      Siswa(nis: '241001', nama: 'Adinda Rahmawati', kelas: 'XI RPL 1', alamat: 'Jl. Meranti No. 14, Bogor'),
-      Siswa(nis: '241002', nama: 'Bagas Prakoso', kelas: 'XI RPL 2', alamat: 'Jl. Kenanga No. 9, Bogor'),
-      Siswa(nis: '241003', nama: 'Kayla Anindya Putri', kelas: 'XI RPL 1', alamat: 'Perum Griya Asri Blok C2, Cibinong'),
-      Siswa(nis: '241004', nama: 'Naufal Hidayat', kelas: 'XI RPL 2', alamat: 'Jl. Cempaka Raya No. 8, Bogor'),
-      Siswa(nis: '241005', nama: 'Rizky Maulana', kelas: 'XI RPL 1', alamat: 'Kp. Cibinong No. 21, Bogor'),
-      Siswa(nis: '241006', nama: 'Salsabila Nur Fadhilah', kelas: 'XI RPL 2', alamat: 'Jl. Pahlawan No. 3, Bogor'),
+      Siswa(
+        nis: '241001',
+        nama: 'Adinda Rahmawati',
+        kelas: 'XI RPL 1',
+        alamat: 'Jl. Meranti No. 14, Bogor',
+      ),
+      Siswa(
+        nis: '241002',
+        nama: 'Bagas Prakoso',
+        kelas: 'XI RPL 2',
+        alamat: 'Jl. Kenanga No. 9, Bogor',
+      ),
+      Siswa(
+        nis: '241003',
+        nama: 'Kayla Anindya Putri',
+        kelas: 'XI RPL 1',
+        alamat: 'Perum Griya Asri Blok C2, Cibinong',
+      ),
+      Siswa(
+        nis: '241004',
+        nama: 'Naufal Hidayat',
+        kelas: 'XI RPL 2',
+        alamat: 'Jl. Cempaka Raya No. 8, Bogor',
+      ),
+      Siswa(
+        nis: '241005',
+        nama: 'Rizky Maulana',
+        kelas: 'XI RPL 1',
+        alamat: 'Kp. Cibinong No. 21, Bogor',
+      ),
+      Siswa(
+        nis: '241006',
+        nama: 'Salsabila Nur Fadhilah',
+        kelas: 'XI RPL 2',
+        alamat: 'Jl. Pahlawan No. 3, Bogor',
+      ),
     ];
     for (final siswa in contoh) {
       await db.insert('siswa', siswa.toMap());
@@ -112,7 +145,8 @@ class PenyimpananFoto {
     if (!await folder.exists()) {
       await folder.create(recursive: true);
     }
-    final namaFile = 'foto_${DateTime.now().microsecondsSinceEpoch}${p.extension(sumber.path)}';
+    final namaFile =
+        'foto_${DateTime.now().microsecondsSinceEpoch}${p.extension(sumber.path)}';
     final tujuan = File(p.join(folder.path, namaFile));
     await sumber.copy(tujuan.path);
     return tujuan.path;

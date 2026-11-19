@@ -18,8 +18,7 @@ class AuthService {
 
   Future<bool> signIn(String username, String password) async {
     final normalized = username.trim().toLowerCase();
-    final valid =
-        normalized == demoUsername && password == demoPassword;
+    final valid = normalized == demoUsername && password == demoPassword;
     if (!valid) return false;
     await _preferences.setSessionUsername(normalized);
     return true;

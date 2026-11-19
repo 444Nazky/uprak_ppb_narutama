@@ -25,7 +25,9 @@ class _RootShellState extends State<RootShell> {
     if (hasil == true && mounted) {
       tampilkanPesan(
         context,
-        siswa == null ? 'Data siswa berhasil ditambahkan.' : 'Perubahan data tersimpan.',
+        siswa == null
+            ? 'Data siswa berhasil ditambahkan.'
+            : 'Perubahan data tersimpan.',
       );
     }
   }

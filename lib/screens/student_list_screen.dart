@@ -47,7 +47,8 @@ class _StudentListScreenState extends State<StudentListScreen> {
     final tema = Theme.of(context);
     final state = AppScope.of(context);
     final daftar = state.siswaTampil;
-    final adaPencarian = state.pencarian.trim().isNotEmpty || state.filterKelas != null;
+    final adaPencarian =
+        state.pencarian.trim().isNotEmpty || state.filterKelas != null;
 
     return SafeArea(
       bottom: false,
@@ -134,8 +135,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                             ? EmptyState(
                                 icon: Icons.search_off_rounded,
                                 judul: 'Siswa tidak ditemukan',
-                                pesan:
-                                    'Tidak ada data yang cocok dengan pencarian atau filter kelas yang dipilih.',
+                                pesan: 'Tidak ada data yang cocok dengan pencarian atau filter kelas yang dipilih.',
                                 aksi: OutlinedButton(
                                   onPressed: () {
                                     _pencarian.clear();
@@ -149,15 +149,16 @@ class _StudentListScreenState extends State<StudentListScreen> {
                             : EmptyState(
                                 icon: Icons.groups_outlined,
                                 judul: 'Belum ada data siswa',
-                                pesan:
-                                    'Tambahkan siswa pertama untuk mulai mengelola data di aplikasi ini.',
+                                pesan: 'Tambahkan siswa pertama untuk mulai mengelola data di aplikasi ini.',
                                 aksi: FilledButton.icon(
                                   onPressed: widget.onTambah,
                                   icon: const Icon(Icons.add_rounded, size: 20),
                                   label: const Text('Tambah siswa'),
                                   style: FilledButton.styleFrom(
                                     minimumSize: const Size(0, 48),
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -167,7 +168,8 @@ class _StudentListScreenState extends State<StudentListScreen> {
                       physics: const AlwaysScrollableScrollPhysics(),
                       padding: const EdgeInsets.fromLTRB(20, 16, 20, 120),
                       itemCount: daftar.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 10),
                       itemBuilder: (context, index) {
                         final siswa = daftar[index];
                         return _KartuSiswa(
@@ -186,7 +188,11 @@ class _StudentListScreenState extends State<StudentListScreen> {
 }
 
 class _FilterChip extends StatelessWidget {
-  const _FilterChip({required this.label, required this.aktif, required this.onTap});
+  const _FilterChip({
+    required this.label,
+    required this.aktif,
+    required this.onTap,
+  });
 
   final String label;
   final bool aktif;
@@ -201,13 +207,19 @@ class _FilterChip extends StatelessWidget {
       onSelected: (_) => onTap(),
       showCheckmark: false,
       labelStyle: tema.textTheme.labelMedium?.copyWith(
-        color: aktif ? tema.colorScheme.onPrimary : tema.colorScheme.onSurfaceVariant,
+        color: aktif
+            ? tema.colorScheme.onPrimary
+            : tema.colorScheme.onSurfaceVariant,
         fontWeight: aktif ? FontWeight.w700 : FontWeight.w500,
       ),
-      side: BorderSide(color: aktif ? Colors.transparent : tema.colorScheme.outline),
+      side: BorderSide(
+        color: aktif ? Colors.transparent : tema.colorScheme.outline,
+      ),
       backgroundColor: tema.colorScheme.surface,
       selectedColor: tema.colorScheme.primary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.pill)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     );
   }
@@ -248,8 +260,11 @@ class _KartuSiswa extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.badge_outlined,
-                        size: 13, color: tema.colorScheme.onSurfaceVariant),
+                    Icon(
+                      Icons.badge_outlined,
+                      size: 13,
+                      color: tema.colorScheme.onSurfaceVariant,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       siswa.nis,
@@ -260,7 +275,10 @@ class _KartuSiswa extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: tema.colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -282,8 +300,11 @@ class _KartuSiswa extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 1),
-                      child: Icon(Icons.place_outlined,
-                          size: 13, color: tema.colorScheme.onSurfaceVariant),
+                      child: Icon(
+                        Icons.place_outlined,
+                        size: 13,
+                        color: tema.colorScheme.onSurfaceVariant,
+                      ),
                     ),
                     const SizedBox(width: 4),
                     Expanded(
@@ -303,9 +324,14 @@ class _KartuSiswa extends StatelessWidget {
           ),
           PopupMenuButton<String>(
             tooltip: 'Aksi data siswa',
-            icon: Icon(Icons.more_vert_rounded,
-                size: 20, color: tema.colorScheme.onSurfaceVariant),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            icon: Icon(
+              Icons.more_vert_rounded,
+              size: 20,
+              color: tema.colorScheme.onSurfaceVariant,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
             onSelected: (nilai) {
               if (nilai == 'ubah') onUbah();
               if (nilai == 'hapus') onHapus();
@@ -325,7 +351,11 @@ class _KartuSiswa extends StatelessWidget {
                 value: 'hapus',
                 child: Row(
                   children: [
-                    Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.danger),
+                    Icon(
+                      Icons.delete_outline_rounded,
+                      size: 18,
+                      color: AppColors.danger,
+                    ),
                     SizedBox(width: 10),
                     Text('Hapus', style: TextStyle(color: AppColors.danger)),
                   ],

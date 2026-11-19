@@ -15,7 +15,10 @@ class ProfileScreen extends StatelessWidget {
       return;
     }
     try {
-      await PdfService.bagikan(siswa: state.siswa, dicetakOleh: state.namaPengguna);
+      await PdfService.bagikan(
+        siswa: state.siswa,
+        dicetakOleh: state.namaPengguna,
+      );
     } catch (error) {
       if (!context.mounted) return;
       tampilkanPesan(context, 'PDF gagal dibuat: $error', galat: true);
@@ -26,7 +29,11 @@ class ProfileScreen extends StatelessWidget {
     final setuju = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        icon: const Icon(Icons.logout_rounded, size: 26, color: AppColors.danger),
+        icon: const Icon(
+          Icons.logout_rounded,
+          size: 26,
+          color: AppColors.danger,
+        ),
         title: const Text('Keluar dari aplikasi?'),
         content: const Text(
           'Anda akan kembali ke halaman login. Data siswa tetap tersimpan.',
@@ -144,7 +151,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: tema.colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -170,7 +180,9 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Text(
                         '${state.totalSiswa}',
-                        style: tema.textTheme.headlineMedium?.copyWith(fontSize: 28),
+                        style: tema.textTheme.headlineMedium?.copyWith(
+                          fontSize: 28,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Text(
@@ -191,7 +203,9 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Text(
                         '${state.totalKelas}',
-                        style: tema.textTheme.headlineMedium?.copyWith(fontSize: 28),
+                        style: tema.textTheme.headlineMedium?.copyWith(
+                          fontSize: 28,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Text(
@@ -213,7 +227,8 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 SwitchListTile.adaptive(
-                  value: state.tema == ThemeMode.dark ||
+                  value:
+                      state.tema == ThemeMode.dark ||
                       (state.tema == ThemeMode.system && gelap),
                   onChanged: (aktif) =>
                       state.gantiTema(aktif ? ThemeMode.dark : ThemeMode.light),
@@ -224,15 +239,19 @@ class ProfileScreen extends StatelessWidget {
                       color: tema.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  secondary: Icon(Icons.dark_mode_outlined,
-                      color: tema.colorScheme.onSurfaceVariant),
+                  secondary: Icon(
+                    Icons.dark_mode_outlined,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 ),
                 const Divider(height: 1, indent: 12, endIndent: 12),
                 ListTile(
                   onTap: () => _ekspor(context),
-                  leading: Icon(Icons.picture_as_pdf_outlined,
-                      color: tema.colorScheme.onSurfaceVariant),
+                  leading: Icon(
+                    Icons.picture_as_pdf_outlined,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
                   title: const Text('Ekspor data ke PDF'),
                   subtitle: Text(
                     'Bagikan atau cetak laporan seluruh siswa',
@@ -240,9 +259,14 @@ class ProfileScreen extends StatelessWidget {
                       color: tema.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  trailing: Icon(Icons.chevron_right_rounded,
-                      size: 20, color: tema.colorScheme.onSurfaceVariant),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  trailing: Icon(
+                    Icons.chevron_right_rounded,
+                    size: 20,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 ),
                 const Divider(height: 1, indent: 12, endIndent: 12),
@@ -254,8 +278,10 @@ class ProfileScreen extends StatelessWidget {
                     );
                     tampilkanPesan(context, 'Notifikasi percobaan dikirim.');
                   },
-                  leading: Icon(Icons.notifications_none_rounded,
-                      color: tema.colorScheme.onSurfaceVariant),
+                  leading: Icon(
+                    Icons.notifications_none_rounded,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
                   title: const Text('Tes notifikasi'),
                   subtitle: Text(
                     'Kirim contoh notifikasi perubahan data',
@@ -263,16 +289,23 @@ class ProfileScreen extends StatelessWidget {
                       color: tema.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  trailing: Icon(Icons.chevron_right_rounded,
-                      size: 20, color: tema.colorScheme.onSurfaceVariant),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  trailing: Icon(
+                    Icons.chevron_right_rounded,
+                    size: 20,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 ),
                 const Divider(height: 1, indent: 12, endIndent: 12),
                 ListTile(
                   onTap: () => _tentang(context),
-                  leading: Icon(Icons.info_outline_rounded,
-                      color: tema.colorScheme.onSurfaceVariant),
+                  leading: Icon(
+                    Icons.info_outline_rounded,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
                   title: const Text('Tentang aplikasi'),
                   subtitle: Text(
                     'Versi 1.0.0',
@@ -280,9 +313,14 @@ class ProfileScreen extends StatelessWidget {
                       color: tema.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  trailing: Icon(Icons.chevron_right_rounded,
-                      size: 20, color: tema.colorScheme.onSurfaceVariant),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  trailing: Icon(
+                    Icons.chevron_right_rounded,
+                    size: 20,
+                    color: tema.colorScheme.onSurfaceVariant,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 ),
               ],

@@ -24,26 +24,19 @@ Future<void> exportStudentsPdf(
   );
 
   try {
-    final file = await PdfService.export(
-      students,
-      filterLabel: filterLabel,
-    );
+    final file = await PdfService.export(students, filterLabel: filterLabel);
     if (!context.mounted) return;
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        SnackBar(
-          content: Text('PDF tersimpan: ${file.uri.pathSegments.last}'),
-        ),
+        SnackBar(content: Text('PDF tersimpan: ${file.uri.pathSegments.last}')),
       );
   } catch (_) {
     if (!context.mounted) return;
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(
-          content: Text('Gagal membuat PDF. Coba lagi.'),
-        ),
+        const SnackBar(content: Text('Gagal membuat PDF. Coba lagi.')),
       );
   }
 }

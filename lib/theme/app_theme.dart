@@ -94,7 +94,12 @@ abstract final class AppTheme {
       onInverseSurface: Color(0xFF0B0F16),
       inversePrimary: AppColors.cobalt,
     );
-    return _build(scheme, AppColors.darkCanvas, AppColors.darkSurface, AppColors.darkLine);
+    return _build(
+      scheme,
+      AppColors.darkCanvas,
+      AppColors.darkSurface,
+      AppColors.darkLine,
+    );
   }
 
   static ThemeData _build(
@@ -145,9 +150,18 @@ abstract final class AppTheme {
             fontSize: 15.5,
             fontWeight: FontWeight.w600,
           ),
-          bodyLarge: base.textTheme.bodyLarge?.copyWith(fontSize: 15.5, height: 1.55),
-          bodyMedium: base.textTheme.bodyMedium?.copyWith(fontSize: 14, height: 1.5),
-          bodySmall: base.textTheme.bodySmall?.copyWith(fontSize: 12.5, height: 1.45),
+          bodyLarge: base.textTheme.bodyLarge?.copyWith(
+            fontSize: 15.5,
+            height: 1.55,
+          ),
+          bodyMedium: base.textTheme.bodyMedium?.copyWith(
+            fontSize: 14,
+            height: 1.5,
+          ),
+          bodySmall: base.textTheme.bodySmall?.copyWith(
+            fontSize: 12.5,
+            height: 1.45,
+          ),
           labelLarge: base.textTheme.labelLarge?.copyWith(
             fontSize: 14.5,
             fontWeight: FontWeight.w600,
@@ -217,12 +231,19 @@ abstract final class AppTheme {
         fillColor: scheme.brightness == Brightness.light
             ? surface
             : AppColors.darkElevated,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         hintStyle: textTheme.bodyMedium?.copyWith(
           color: scheme.onSurfaceVariant.withValues(alpha: 0.75),
         ),
-        labelStyle: textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
-        floatingLabelStyle: textTheme.bodyMedium?.copyWith(color: scheme.primary),
+        labelStyle: textTheme.bodyMedium?.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
+        floatingLabelStyle: textTheme.bodyMedium?.copyWith(
+          color: scheme.primary,
+        ),
         border: border(line),
         enabledBorder: border(line),
         focusedBorder: border(scheme.primary, 1.6),
@@ -244,9 +265,7 @@ abstract final class AppTheme {
         backgroundColor: surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(22),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         titleTextStyle: textTheme.headlineSmall?.copyWith(fontSize: 19),
         contentTextStyle: textTheme.bodyMedium?.copyWith(
           color: scheme.onSurfaceVariant,
@@ -314,9 +333,7 @@ abstract final class AppTheme {
         foregroundColor: scheme.onPrimary,
         elevation: 2,
         highlightElevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: scheme.primary,
@@ -328,7 +345,9 @@ abstract final class AppTheme {
           color: scheme.inverseSurface,
           borderRadius: BorderRadius.circular(8),
         ),
-        textStyle: textTheme.bodySmall?.copyWith(color: scheme.onInverseSurface),
+        textStyle: textTheme.bodySmall?.copyWith(
+          color: scheme.onInverseSurface,
+        ),
       ),
     );
   }

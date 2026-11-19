@@ -57,9 +57,14 @@ class Siswa {
   }
 
   String get inisial {
-    final bagian = nama.trim().split(RegExp(r'\s+')).where((e) => e.isNotEmpty).toList();
+    final bagian = nama
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((e) => e.isNotEmpty)
+        .toList();
     if (bagian.isEmpty) return '?';
     if (bagian.length == 1) return bagian.first.substring(0, 1).toUpperCase();
-    return (bagian.first.substring(0, 1) + bagian[1].substring(0, 1)).toUpperCase();
+    return (bagian.first.substring(0, 1) + bagian[1].substring(0, 1))
+        .toUpperCase();
   }
 }

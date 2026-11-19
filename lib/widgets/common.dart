@@ -82,7 +82,8 @@ class StudentAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final tema = Theme.of(context);
     final path = siswa.fotoPath;
-    final punyaFoto = path != null && path.isNotEmpty && File(path).existsSync();
+    final punyaFoto =
+        path != null && path.isNotEmpty && File(path).existsSync();
     return Container(
       width: size,
       height: size,
@@ -130,7 +131,10 @@ class EmptyState extends StatelessWidget {
     final tema = Theme.of(context);
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: ringkas ? 20 : 40),
+        padding: EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: ringkas ? 20 : 40,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -141,7 +145,11 @@ class EmptyState extends StatelessWidget {
                 color: tema.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Icon(icon, size: 28, color: tema.colorScheme.onPrimaryContainer),
+              child: Icon(
+                icon,
+                size: 28,
+                color: tema.colorScheme.onPrimaryContainer,
+              ),
             ),
             const SizedBox(height: 16),
             Text(
@@ -160,10 +168,7 @@ class EmptyState extends StatelessWidget {
                 ),
               ),
             ),
-            if (aksi != null) ...[
-              const SizedBox(height: 18),
-              aksi!,
-            ],
+            if (aksi != null) ...[const SizedBox(height: 18), aksi!],
           ],
         ),
       ),
@@ -248,8 +253,11 @@ Future<bool> konfirmasiHapus(
             color: AppColors.dangerSoft,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Icon(Icons.delete_outline_rounded,
-              color: AppColors.danger, size: 26),
+          child: const Icon(
+            Icons.delete_outline_rounded,
+            color: AppColors.danger,
+            size: 26,
+          ),
         ),
         title: const Text('Hapus data siswa?'),
         content: Text(
@@ -259,7 +267,9 @@ Future<bool> konfirmasiHapus(
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            style: TextButton.styleFrom(foregroundColor: tema.colorScheme.onSurfaceVariant),
+            style: TextButton.styleFrom(
+              foregroundColor: tema.colorScheme.onSurfaceVariant,
+            ),
             child: const Text('Batal'),
           ),
           FilledButton(
@@ -287,7 +297,9 @@ void tampilkanPesan(BuildContext context, String pesan, {bool galat = false}) {
         content: Row(
           children: [
             Icon(
-              galat ? Icons.error_outline_rounded : Icons.check_circle_outline_rounded,
+              galat
+                  ? Icons.error_outline_rounded
+                  : Icons.check_circle_outline_rounded,
               color: galat ? AppColors.dangerSoft : Colors.white,
               size: 20,
             ),
@@ -295,7 +307,9 @@ void tampilkanPesan(BuildContext context, String pesan, {bool galat = false}) {
             Expanded(child: Text(pesan)),
           ],
         ),
-        backgroundColor: galat ? AppColors.danger : tema.snackBarTheme.backgroundColor,
+        backgroundColor: galat
+            ? AppColors.danger
+            : tema.snackBarTheme.backgroundColor,
       ),
     );
 }
@@ -321,8 +335,13 @@ class AksiTeks extends StatelessWidget {
     final color = warna ?? tema.colorScheme.primary;
     return TextButton.icon(
       onPressed: onPressed,
-      icon: icon == null ? const SizedBox.shrink() : Icon(icon, size: 18, color: color),
-      label: Text(label, style: tema.textTheme.labelMedium?.copyWith(color: color)),
+      icon: icon == null
+          ? const SizedBox.shrink()
+          : Icon(icon, size: 18, color: color),
+      label: Text(
+        label,
+        style: tema.textTheme.labelMedium?.copyWith(color: color),
+      ),
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         minimumSize: const Size(0, 34),

@@ -148,64 +148,62 @@ class DashboardTab extends StatelessWidget {
             onAction: () => onNavigate(1),
           ),
           if (state.students.isEmpty)
-            _EmptyRecent(
-              onAdd: onAdd,
-              onSeed: () => state.seedSampleData(),
-            )
+            _EmptyRecent(onAdd: onAdd, onSeed: () => state.seedSampleData())
           else
-            ...state.recentStudents.take(4).map(
-              (student) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Material(
-                  color: scheme.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(color: scheme.outlineVariant),
-                  ),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(16),
-                    onTap: () => onNavigate(1),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Row(
-                        children: [
-                          AvatarCircle(
-                            label: student.initials,
-                            photoPath: student.photoPath,
-                            size: 44,
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  student.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.textTheme.titleSmall?.copyWith(
-                                    fontSize: 14,
-                                  ),
+            ...state.recentStudents
+                .take(4)
+                .map(
+                  (student) => Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Material(
+                      color: scheme.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: BorderSide(color: scheme.outlineVariant),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => onNavigate(1),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: [
+                              AvatarCircle(
+                                label: student.initials,
+                                photoPath: student.photoPath,
+                                size: 44,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      student.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: theme.textTheme.titleSmall
+                                          ?.copyWith(fontSize: 14),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      '${student.nis} · ${student.kelas}',
+                                      style: theme.textTheme.bodySmall,
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  '${student.nis} · ${student.kelas}',
-                                  style: theme.textTheme.bodySmall,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Icon(
+                                Icons.chevron_right_rounded,
+                                color: scheme.onSurfaceVariant,
+                              ),
+                            ],
                           ),
-                          Icon(
-                            Icons.chevron_right_rounded,
-                            color: scheme.onSurfaceVariant,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
         ],
       ),
     );
