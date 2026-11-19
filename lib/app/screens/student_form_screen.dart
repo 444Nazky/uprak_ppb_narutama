@@ -436,13 +436,19 @@ class _FotoPicker extends StatelessWidget {
             alignment: Alignment.center,
             child: adaFoto
                 ? null
-                : Text(
-                    inisial,
-                    style: tema.textTheme.headlineMedium?.copyWith(
-                      color: tema.colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                : inisial == '?'
+                    ? Icon(
+                        Icons.person_outline_rounded,
+                        size: 42,
+                        color: tema.colorScheme.onPrimaryContainer,
+                      )
+                    : Text(
+                        inisial,
+                        style: tema.textTheme.headlineMedium?.copyWith(
+                          color: tema.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
           ),
           Positioned(
             right: -2,

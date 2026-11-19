@@ -246,17 +246,19 @@ Future<bool> konfirmasiHapus(
     builder: (context) {
       final tema = Theme.of(context);
       return AlertDialog(
-        icon: Container(
-          width: 52,
-          height: 52,
-          decoration: BoxDecoration(
-            color: AppColors.dangerSoft,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: const Icon(
-            Icons.delete_outline_rounded,
-            color: AppColors.danger,
-            size: 26,
+        icon: Center(
+          child: Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: AppColors.dangerSoft,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Icon(
+              Icons.delete_outline_rounded,
+              color: AppColors.danger,
+              size: 26,
+            ),
           ),
         ),
         title: const Text('Hapus data siswa?'),

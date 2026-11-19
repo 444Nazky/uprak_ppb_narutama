@@ -96,7 +96,7 @@ class AppState extends ChangeNotifier {
     if (!cocok) return false;
     _login = true;
     _username = akunDemoUsername;
-    _nama = 'Administrator Sekolah';
+    _nama = 'Admin Sekolah';
     await _sesi.simpanLogin(username: _username, nama: _nama);
     notifyListeners();
     return true;
