@@ -1,8 +1,8 @@
 import 'package:data_siswa/app/data/session_store.dart';
-import 'package:data_siswa/app/data/sqlite_siswa_repository.dart';
+import 'package:data_siswa/app/data/repositori.dart';
 import 'package:data_siswa/app/screens/login_screen.dart';
 import 'package:data_siswa/app/screens/root_shell.dart';
-import 'package:data_siswa/app/services/notifikasi_service.dart';
+import 'package:data_siswa/app/services/notifikasi.dart';
 import 'package:data_siswa/app/state/app_state.dart';
 import 'package:data_siswa/app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ Future<void> jalankanAplikasi() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await initializeDateFormatting('id_ID');
 
-  final state = AppState(SqliteSiswaRepository(), SessionStore());
+  final state = AppState(buatSiswaRepository(), SessionStore());
   await state.init();
   await NotifikasiService.init();
 

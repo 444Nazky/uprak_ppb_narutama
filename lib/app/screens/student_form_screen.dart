@@ -1,8 +1,6 @@
-import 'dart:io';
-
-import 'package:data_siswa/app/data/sqlite_siswa_repository.dart';
 import 'package:data_siswa/app/models/siswa.dart';
-import 'package:data_siswa/app/services/notifikasi_service.dart';
+import 'package:data_siswa/app/platform/foto.dart';
+import 'package:data_siswa/app/services/notifikasi.dart';
 import 'package:data_siswa/app/state/app_state.dart';
 import 'package:data_siswa/app/theme/app_theme.dart';
 import 'package:data_siswa/app/widgets/common.dart';
@@ -136,7 +134,7 @@ class _StudentFormScreenState extends State<StudentFormScreen> {
         imageQuality: 80,
       );
       if (hasil == null) return;
-      final path = await PenyimpananFoto.simpan(File(hasil.path));
+      final path = await simpanFoto(hasil);
       if (!mounted) return;
       setState(() => _fotoPath = path);
     } catch (error) {
@@ -414,7 +412,8 @@ class _FotoPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tema = Theme.of(context);
-    final adaFoto = fotoPath != null && File(fotoPath!).existsSync();
+    final gambar = fotoProvider(fotoPath);
+    final adaFoto = gambar != null;
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -428,7 +427,7 @@ class _FotoPicker extends StatelessWidget {
               border: Border.all(color: tema.colorScheme.outline),
               image: adaFoto
                   ? DecorationImage(
-                      image: FileImage(File(fotoPath!)),
+                      image: gambar,
                       fit: BoxFit.cover,
                     )
                   : null,

@@ -1,5 +1,5 @@
 import 'package:data_siswa/app/models/siswa.dart';
-import 'package:data_siswa/app/services/notifikasi_service.dart';
+import 'package:data_siswa/app/services/notifikasi.dart';
 import 'package:data_siswa/app/state/app_state.dart';
 import 'package:data_siswa/app/theme/app_theme.dart';
 import 'package:data_siswa/app/widgets/common.dart';
@@ -101,26 +101,30 @@ class _StudentListScreenState extends State<StudentListScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: 54,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-              children: [
-                _FilterChip(
-                  label: 'Semua kelas',
-                  aktif: state.filterKelas == null,
-                  onTap: () => state.saringKelas(null),
-                ),
-                for (final kelas in state.kelasTersedia) ...[
-                  const SizedBox(width: 8),
+          Container(
+            color: tema.colorScheme.surface,
+            padding: const EdgeInsets.only(bottom: 6),
+            child: SizedBox(
+              height: 54,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+                children: [
                   _FilterChip(
-                    label: kelas,
-                    aktif: state.filterKelas == kelas,
-                    onTap: () => state.saringKelas(kelas),
+                    label: 'Semua kelas',
+                    aktif: state.filterKelas == null,
+                    onTap: () => state.saringKelas(null),
                   ),
+                  for (final kelas in state.kelasTersedia) ...[
+                    const SizedBox(width: 8),
+                    _FilterChip(
+                      label: kelas,
+                      aktif: state.filterKelas == kelas,
+                      onTap: () => state.saringKelas(kelas),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
           Expanded(

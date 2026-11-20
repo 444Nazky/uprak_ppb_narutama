@@ -1,11 +1,3 @@
-import 'package:flutter/material.dart';
+import 'package:data_siswa/app/app.dart';
 
-import 'app.dart';
-import 'state/app_state.dart';
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final state = AppState();
-  await state.bootstrap();
-  runApp(DataSiswaApp(state: state));
-}
+Future<void> main() => jalankanAplikasi();

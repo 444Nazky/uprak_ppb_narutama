@@ -77,13 +77,19 @@ class _RootShellState extends State<RootShell> {
       ),
       floatingActionButton: _tab == 2
           ? null
-          : FloatingActionButton.extended(
-              onPressed: () => _bukaForm(),
-              icon: const Icon(Icons.add_rounded, size: 22),
-              label: const Text('Tambah'),
-              tooltip: 'Tambah data siswa',
-              extendedPadding: const EdgeInsets.symmetric(horizontal: 18),
-            ),
+          : _tab == 1
+              ? FloatingActionButton(
+                  onPressed: () => _bukaForm(),
+                  tooltip: 'Tambah data siswa',
+                  child: const Icon(Icons.add_rounded, size: 28),
+                )
+              : FloatingActionButton.extended(
+                  onPressed: () => _bukaForm(),
+                  icon: const Icon(Icons.add_rounded, size: 22),
+                  label: const Text('Tambah'),
+                  tooltip: 'Tambah data siswa',
+                  extendedPadding: const EdgeInsets.symmetric(horizontal: 18),
+                ),
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: tema.colorScheme.outline)),

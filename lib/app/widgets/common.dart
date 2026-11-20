@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:data_siswa/app/platform/foto.dart';
 
 import 'package:data_siswa/app/models/siswa.dart';
 import 'package:data_siswa/app/theme/app_theme.dart';
@@ -82,8 +82,8 @@ class StudentAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final tema = Theme.of(context);
     final path = siswa.fotoPath;
-    final punyaFoto =
-        path != null && path.isNotEmpty && File(path).existsSync();
+    final gambar = fotoProvider(path);
+    final punyaFoto = gambar != null;
     return Container(
       width: size,
       height: size,
@@ -91,7 +91,7 @@ class StudentAvatar extends StatelessWidget {
         color: tema.colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(radius),
         image: punyaFoto
-            ? DecorationImage(image: FileImage(File(path)), fit: BoxFit.cover)
+            ? DecorationImage(image: gambar, fit: BoxFit.cover)
             : null,
       ),
       alignment: Alignment.center,

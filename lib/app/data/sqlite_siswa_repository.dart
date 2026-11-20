@@ -1,9 +1,7 @@
-import 'dart:io';
-
+import 'package:data_siswa/app/data/contoh_siswa.dart';
 import 'package:data_siswa/app/data/siswa_repository.dart';
 import 'package:data_siswa/app/models/siswa.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// Penyimpanan permanen memakai SQLite. Data tetap ada setelah aplikasi
@@ -92,71 +90,11 @@ class SqliteSiswaRepository implements SiswaRepository {
   /// Enam data contoh supaya daftar tidak kosong saat aplikasi pertama dibuka.
   /// Data ini bisa dihapus lewat menu hapus seperti data biasa.
   Future<void> _isiContoh(Database db) async {
-    const contoh = [
-      Siswa(
-        nis: '241001',
-        nama: 'Adinda Rahmawati',
-        kelas: 'XI RPL 1',
-        alamat: 'Jl. Meranti No. 14, Bogor',
-      ),
-      Siswa(
-        nis: '241002',
-        nama: 'Bagas Prakoso',
-        kelas: 'XI RPL 2',
-        alamat: 'Jl. Kenanga No. 9, Bogor',
-      ),
-      Siswa(
-        nis: '241003',
-        nama: 'Kayla Anindya Putri',
-        kelas: 'XI RPL 1',
-        alamat: 'Perum Griya Asri Blok C2, Cibinong',
-      ),
-      Siswa(
-        nis: '241004',
-        nama: 'Naufal Hidayat',
-        kelas: 'XI RPL 2',
-        alamat: 'Jl. Cempaka Raya No. 8, Bogor',
-      ),
-      Siswa(
-        nis: '241005',
-        nama: 'Rizky Maulana',
-        kelas: 'XI RPL 1',
-        alamat: 'Kp. Cibinong No. 21, Bogor',
-      ),
-      Siswa(
-        nis: '241006',
-        nama: 'Salsabila Nur Fadhilah',
-        kelas: 'XI RPL 2',
-        alamat: 'Jl. Pahlawan No. 3, Bogor',
-      ),
-    ];
-    for (final siswa in contoh) {
+    for (final siswa in contohSiswa) {
       await db.insert('siswa', siswa.toMap());
     }
   }
 }
 
-/// Menyalin foto pilihan pengguna ke folder aplikasi agar tidak hilang
-/// ketika cache sistem dibersihkan.
-class PenyimpananFoto {
-  static Future<String> simpan(File sumber) async {
-    final dokumen = await getApplicationDocumentsDirectory();
-    final folder = Directory(p.join(dokumen.path, 'foto_siswa'));
-    if (!await folder.exists()) {
-      await folder.create(recursive: true);
-    }
-    final namaFile =
-        'foto_${DateTime.now().microsecondsSinceEpoch}${p.extension(sumber.path)}';
-    final tujuan = File(p.join(folder.path, namaFile));
-    await sumber.copy(tujuan.path);
-    return tujuan.path;
-  }
-
-  static Future<void> hapus(String? path) async {
-    if (path == null || path.isEmpty) return;
-    final file = File(path);
-    if (await file.exists()) {
-      await file.delete();
-    }
-  }
-}
+/// Membuat penyimpanan data siswa sesuai platform yang sedang berjalan.
+SiswaRepository buatSiswaRepository() => SqliteSiswaRepository();
