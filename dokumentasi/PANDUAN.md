@@ -83,7 +83,21 @@ aplikasi langsung menampilkan dashboard karena sesi disimpan di `shared_preferen
 | Ekspor PDF gagal | Pastikan aplikasi PDF viewer tersedia; laporan disimpan di folder cache aplikasi lalu dibagikan lewat dialog sistem. |
 | Lupa akun demo | Gunakan `admin` / `admin123`; akun ini bawaan aplikasi dan tidak bisa diubah. |
 
-## 7. Build ulang dari source
+## 7. Pratinjau cepat di Chrome
+
+Selain APK, aplikasi bisa dicoba di browser tanpa memasang apa pun:
+
+```bash
+flutter build web --release
+python3 -m http.server 8080 --directory build/web
+# buka http://localhost:8080  (login admin / admin123)
+```
+
+Perbedaan di versi web: data tersimpan di local storage browser (bukan SQLite), notifikasi
+lokal tidak muncul, pilihan foto memakai dialog berkas (kamera hanya di Android), dan laporan
+PDF diunduh/dicetak lewat dialog browser.
+
+## 8. Build ulang dari source
 
 ```bash
 flutter pub get
@@ -95,7 +109,7 @@ flutter build apk --release
 Spesifikasi build: Flutter stable, `compileSdk 37`, `minSdk 24`, `targetSdk 36`,
 desugaring 2.1.4, font Plus Jakarta Sans dibundel di `assets/fonts`.
 
-## 8. Lampiran
+## 9. Lampiran
 
 - `dokumentasi/screenshot/01-login.png` … `11-ekspor-pdf.png`
 - `dokumentasi/video/demo-aplikasi-data-siswa.mp4`

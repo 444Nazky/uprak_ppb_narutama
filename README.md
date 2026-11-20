@@ -48,6 +48,20 @@ flutter test                # 8 unit test AppState
 flutter build apk --release # menghasilkan build/app/outputs/flutter-apk/app-release.apk
 ```
 
+## Pratinjau di browser (Chrome)
+
+Aplikasi juga bisa dibuka di browser untuk memeriksa tampilan dan alur CRUD:
+
+```bash
+flutter build web --release
+python3 -m http.server 8080 --directory build/web
+# buka http://localhost:8080
+```
+
+Di versi web data disimpan sebagai JSON di local storage (pengganti SQLite), notifikasi
+tidak aktif, dan foto disimpan sebagai data URL. Versi Android tetap memakai SQLite,
+notifikasi lokal, dan file foto di penyimpanan aplikasi.
+
 ## Struktur kode
 
 ```
